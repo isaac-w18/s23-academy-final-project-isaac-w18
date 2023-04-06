@@ -12,18 +12,35 @@ struct BibleView: View {
     
     var body: some View {
         // MARK: Call getChapter(version: Version) with the default version. Then change BibleViewModel to have version be mandatory
-        let _ = vm.getChapter()
+        let chapter = vm.getChapter()
         
-        let printa = print("BibleView ran")
+//        let printa = print("BibleView ran")
         let verseAsStringArr = vm.verseAsStringArr()
-        let print = print("\(verseAsStringArr.count)")
-        Text("Jesus is Lord!")
+//        let print = print("\(verseAsStringArr.count)")
+        
+        if(!verseAsStringArr.isEmpty) {
+            ScrollView {
+                ForEach(0...verseAsStringArr.count-1, id: \.self) {index in
+                    Text(verseAsStringArr[index])
+                    
+                }
+            }
+            .navigationTitle(vm.book.rawValue + " \(vm.chapterNum)")
+            .navigationBarTitleDisplayMode(.inline)
+            
+            Picker("Book", selection: $vm.book) {
+                ForEach(Book.allCases, id: \.self) {b in
+                    Text(b.rawValue)
+                }
+            }
+        }
+        
+        
 
         
-        // Problem: ForEach does not await data, so it runs with the array still empty
-//        ForEach(0...verseAsStringArr.count-1, id: \.self) {index in
-//            Text(verseAsStringArr[index])
-//        }
+//         Problem: ForEach does not await data, so it runs with the array still empty
+        
+        
         
     }
 }

@@ -19,7 +19,7 @@ class BibleViewModel: ObservableObject {
     
     @Published var errorMessage: String? = nil
     
-    var printH = print("BibleVM Ran")
+//    var printH = print("BibleVM Ran")
     
     
     // MARK: Create a func getChapter(version: Version)
@@ -31,7 +31,7 @@ class BibleViewModel: ObservableObject {
 //                print("getChapter did!")
             } catch {
 //                self.errorMessage = "Errorrrr"
-                print("errorrr at getChapter")
+//                print("errorrr at getChapter")
             }
         }
     }
@@ -50,11 +50,11 @@ struct BibleService {
     private let session = URLSession.shared
     private let decoder = JSONDecoder()
     
-    let printa = print("BibleService ran")
+//    let printa = print("BibleService ran")
     
     public func fetchBibleChapter(book: Book, chapterNum: Int, version: Version?) async throws -> Chapter {
-        // TODO: Implement this method
-        print("fetchBibleChapter ran")
+        // TODO: Implement this method with a required version
+//        print("fetchBibleChapter ran")
         
         var url = URL(string: "https://bible-api.com/")
         var urlComponents = URLComponents(string: "https://bible-api.com/")
@@ -64,7 +64,7 @@ struct BibleService {
 //            components?.queryItems = [URLQueryItem(name: nil, value: book.rawValue + "\(chapterNum)"), URLQueryItem(name: nil, value: version.rawValue)]
         } else {
             url = url?.appendingPathComponent(book.rawValue + "\(chapterNum)")
-            print("got components, not version")
+//            print("got components, not version")
         }
         
         guard let url = url else {
@@ -74,12 +74,12 @@ struct BibleService {
         
         
         let (data, _) = try await session.data(from: url)
-        print("data ig was a thing")
-        print(data)
+//        print("data is a thing")
+//        print(data)
         
         let chapter = try JSONDecoder().decode(Chapter.self, from: data)
         
-        print("chapter returned!")
+//        print("chapter returned!")
         return chapter
     }
 }
