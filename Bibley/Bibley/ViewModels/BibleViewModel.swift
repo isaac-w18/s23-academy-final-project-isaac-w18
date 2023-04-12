@@ -12,6 +12,7 @@ class BibleViewModel: ObservableObject {
     private let service = BibleService()
 
     @Published var chapter: Chapter = Chapter(reference: "", verses: [], text: "", translationID: "", translationName: "", translationNote: "")
+    @Published var verseAsStringArr: [String] = []
     
     @Published var book: Book = Book.John
     @Published var chapterNum: Int = 1
@@ -22,27 +23,38 @@ class BibleViewModel: ObservableObject {
 //    var printH = print("BibleVM Ran")
     
     
+
+    
+    
     // MARK: Create a func getChapter(version: Version)
     func getChapter() {
         Task {
             do {
                 let chapter = try await service.fetchBibleChapter(book: book, chapterNum: chapterNum, version: version)
                 self.chapter = chapter
+                getVerseAsStringArr()
 //                print("getChapter did!")
             } catch {
 //                self.errorMessage = "Errorrrr"
 //                print("errorrr at getChapter")
             }
         }
+        
     }
     
-    func verseAsStringArr() -> [String] {
-        let verseArr: [String] = chapter.verses.map {
+    
+    
+    func getVerseAsStringArr() {
+        self.verseAsStringArr = chapter.verses.map {
             $0.text
         }
-        
-        
-        return verseArr
+        print("got verses")
+//        let verseArr: [String] = chapter.verses.map {
+//            $0.text
+//        }
+//
+//
+//        return verseArr
     }
 }
 
