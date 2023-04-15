@@ -18,9 +18,6 @@ struct BibleView: View {
     var body: some View {
         // MARK: Call getChapter(version: Version) with the default version. Then change BibleViewModel to have version be mandatory
         
-//        let printa = print("BibleView ran")
-//        let print = print("\(verseAsStringArr.count)")
-        
         
             ScrollView {
                 ForEach(vm.verseAsStringArr, id: \.self) {index in
@@ -39,14 +36,14 @@ struct BibleView: View {
                     .padding()
                     .background(Color.gray)
                     .cornerRadius(10)
+                    
                 }
                 .buttonStyle(.plain)
                 .sheet(isPresented: $bookSheetPresented) {
-                    BooksView(book: $vm.book, chapterNum: $vm.chapterNum)
+                    BooksView(vm: vm)
                 }
-            }
                 
-            
+            }
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 vm.getChapter()

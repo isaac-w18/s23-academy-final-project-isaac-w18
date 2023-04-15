@@ -9,6 +9,10 @@ import Foundation
 import SwiftUI
 
 class BibleViewModel: ObservableObject {
+    static func == (lhs: BibleViewModel, rhs: BibleViewModel) -> Bool {
+        <#code#>
+    }
+    
     private let service = BibleService()
 
     @Published var chapter: Chapter = Chapter(reference: "", verses: [], text: "", translationID: "", translationName: "", translationNote: "")
